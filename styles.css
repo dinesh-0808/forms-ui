@@ -1,0 +1,13 @@
+body {
+    background-color: #f0d8ff;
+}
+
+.custom-container {
+    width: 750px; /* Set width to 50% */
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.question-box {
+    margin-bottom: 20px;
+}
