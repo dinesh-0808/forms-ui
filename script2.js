@@ -3,9 +3,10 @@ function generatePreviewHTML(){
 
     let children = formContainer.children;
 
-    let previewHTML = `<!DOCTYPE html>
-<html lang="en">
-<head>
+    let previewHTML = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Preview</title>
@@ -13,32 +14,32 @@ function generatePreviewHTML(){
     <link rel="stylesheet" href="/styles.css">
     <style>
         body {
-    background-color: #f0d8ff;
-}   
+            background-color: #f0d8ff;
+        }          
 
-.custom-container {
-    width: 750px; /* Set width to 50% */
-    margin: 0 auto;
-    margin-bottom: 20px;
-}
+        .custom-container {
+            width: 750px; /* Set width to 50% */
+            margin: 0 auto;
+            margin-bottom: 20px;
+        }
 
-.question-box {
-    margin-bottom: 20px;
-}
+        .question-box {
+            margin-bottom: 20px;
+        }
     </style>
-</head>
-<body>
-    <div class="container mt-5 custom-container">
-        <div id="form-container">`;
+    </head>
+    <body>
+        <div class="container mt-5 custom-container">
+            <div id="form-container">`;
     for (let i = 0; i < children.length; i++) {
         let child = children[i];
         if (child.tagName.toLowerCase() === 'div') {
             // Create a new div for each question in the preview
             let questionType = child.className;
             let questionHTML = '';
-            
+            console.log("child is here: ",child);
             // Handle each question type
-            if(i===0){
+            if(child.querySelector('.formTitleAndDesc')){
                 //title and description
                 let formTitle = child.querySelector("#formTitle").value;
                 let formDesc = child.querySelector("#formDesc").value;
@@ -171,6 +172,7 @@ function generatePreviewHTML(){
 </body>
 </html>
     `
+    //console.log(previewHTML);
     return previewHTML;
 }
 
@@ -179,7 +181,7 @@ function generatePreviewHTML(){
 function openPreview() {
     // Generate the HTML content for the preview
     let previewContent = generatePreviewHTML();
-
+    //console.log(previewContent);
     // Open a new window with the preview content
     let previewWindow = window.open();
     previewWindow.document.open();

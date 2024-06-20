@@ -4,7 +4,7 @@ function addQuestion(){
     var questionType = null;
 
     questionType = document.querySelector("#question-type").value;
-    console.log(questionType);
+    //console.log(questionType);
     
     var htmlcode = "";
     switch(questionType){

@@ -1,5 +1,5 @@
 body {
-    background-color: #f0d8ff;
+    background-color: #FFE9FF;
 }
 
 .custom-container {
@@ -10,4 +10,63 @@ body {
 
 .question-box {
     margin-bottom: 20px;
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    border: 2px solid rgba(108, 117, 125, 0.2);
+}
+
+.preview-button {
+    position: relative; /* Needed for absolute positioning inside it */
+    padding: 20px; /* Adjust padding to give space for content */
+    background-color: white; /* Background color */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+}
+
+/* Style for the button */
+.preview-button .btn-preview {
+    position: absolute; /* Absolute positioning within the relative parent */
+    top: 10px; /* Distance from the top edge */
+    right: 10px; /* Distance from the right edge */
+    background-color: white; /* White background for the button */
+    color: #6c757d; /* Icon color to match button's previous color */
+    padding: 8px; /* Padding around the icon */
+    border: 2px solid #6c757d; /* Border to outline the button */
+    border-radius: 50%; /* Make the button circular */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transitions */
+    display: flex; /* Flexbox to center icon */
+    justify-content: center; /* Center icon horizontally */
+    align-items: center; /* Center icon vertically */
+    width: 40px; /* Fixed width for circular shape */
+    height: 40px; /* Fixed height for circular shape */
+}
+
+/* Hover effect for the button */
+.preview-button .btn-preview:hover {
+    background-color: #6c757d; /* Darker background on hover */
+    color: white; /* Darker shade on hover */
+}
+
+.fa-eye {
+    margin-right: 5px; /* Space between icon and text */
+}
+
+.form-group select{
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    border: 2px solid rgba(108, 117, 125, 0.2);
+    background-color: white;
+    padding: 20px;
+}
+
+.form-select-css {
+    
+    /* Remove default border */
+    padding-top: 2px;
+            background-color: transparent; /* Ensure background is transparent to blend with parent */
+            font-size: 16px; /* Adjust font size for consistency */
+            padding: 8px; /* Add some padding for better appearance */
+            outline: none; /* Remove focus outline */
+            appearance: none; 
 }

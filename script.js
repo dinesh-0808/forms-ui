@@ -4,12 +4,13 @@ function addQuestion(){
     var questionType = null;
 
     questionType = document.querySelector("#question-type").value;
-    console.log(questionType);
+    //console.log(questionType);
     
     var htmlcode = "";
     switch(questionType){
         case "short-text":
             htmlcode = `
+        <h6>Short Text</h6>
         <div class="shortText">
             <div class="form-group">
                 <input type="text" class="form-control" id="inputHeader" aria-describedby="headerHelp" placeholder="Question">
@@ -23,6 +24,7 @@ function addQuestion(){
         
         case "long-text":
                 htmlcode = `
+        <h6>Long Text</h6>
         <div class="longText">
             <div class="form-group">
                 <input type="text" class="form-control" id="inputHeader" aria-describedby="headerHelp" placeholder="Question">
@@ -35,55 +37,61 @@ function addQuestion(){
             break;
 
         case "multiple-choice":
+            MultipleCoiceBoxCount++;
             htmlcode = `
+        <h6>Multiple Choice</h6>
         <div class="multipleChoice">
             <div class="form-group">
                 <input type="text" class="form-control" id="inputHeader" aria-describedby="headerHelp" placeholder="Question">
             </div>
             <br>
-            <div id="mcq-options">    
+            <div id="mcq-options${MultipleCoiceBoxCount}">    
                 <div class="form-check">
-                    <input type="radio" class="form-check-input" name="mcq" id="mcqOption1" value="option1" disabled=true>
-                    <label class="form-check-label" for="mcqOption1"><input type="text" class='form-control' value="option1"></label>
+                    <input type="radio" class="form-check-input" name="mcq" id="mcqOption${MultipleCoiceBoxCount}1" value="option" disabled=true>
+                    <label class="form-check-label" for="mcqOption1"><input type="text" class='form-control' value="option"></label>
                 </div>
                 <div class="form-check">
-                    <input type="radio" class="form-check-input" name="mcq" id="mcqOption2" value="option2" disabled=true>
-                    <label class="form-check-label" for="mcqOption2"><input type="text" class='form-control' value="option2"></label>
+                    <input type="radio" class="form-check-input" name="mcq" id="mcqOption${MultipleCoiceBoxCount}2" value="option" disabled=true>
+                    <label class="form-check-label" for="mcqOption2"><input type="text" class='form-control' value="option"></label>
                 </div>
             </div>
-            <button type="button" class="btn btn-secondary mt-2" onclick="addMultipleChoiceOptionButton()">Add Option</button>
+            <button type="button" class="btn btn-secondary mt-2" id="mcqOptionsButton${MultipleCoiceBoxCount}"onclick="addMultipleChoiceOptionButton(event)"">Add Option</button>
         </div>`
             break;
 
         case "dropdown":
+            dropdownBoxCount++;
             htmlcode = `
+        <h6>Drop Down</h6>
         <div class="dropDown">
             <div class="form-group">
                 <input type="text" class="form-control" id="inputHeader" aria-describedby="headerHelp" placeholder="Question">
             </div>
             <br>
-            <div class="form-control" id="dropdownQuestion">
-                <p><input type="text" class='form-control' value="option1"></p>
-                <p><input type="text" class='form-control' value="option2"></p>
+            <div class="form-control" id="dropdownQuestion${dropdownBoxCount}">
+                <p><input type="text" class='form-control' value="option"></p>
+                <p><input type="text" class='form-control' value="option"></p>
             </div>
-            <button type="button" class="btn btn-secondary mt-2" onclick="addDropdownOptionButton()">Add Option</button>
+            <button type="button" class="btn btn-secondary mt-2" id="dropdownOptionsButton${dropdownBoxCount}" onclick="addDropdownOptionButton(event)">Add Option</button>
         </div>`
             break;
 
         case "checkboxes":
+            checkboxBoxCount++;
             htmlcode = `
+        <h6>Checkbox</h6>
         <div class="CheckBox">
             <div class="form-group">
                 <input type="text" class="form-control" id="inputHeader" aria-describedby="headerHelp" placeholder="Question">
             </div>
             <br>
-            <div id="checkbox-options">
+            <div id="checkbox-options${checkboxBoxCount}">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" id="checkboxOption1" name="checkbox" value="option1" disabled=true>
-                    <label class="form-check-label" for="checkboxOption1"><input type="text" class='form-control' value="option1"></label>
+                    <label class="form-check-label" for="checkboxOption1"><input type="text" class='form-control' value="option"></label>
                 </div>
             </div>
-            <button type="button" class="btn btn-secondary mt-2" onclick="addCheckBoxOptionButton()">Add Option</button>
+            <button type="button" class="btn btn-secondary mt-2" id="checkboxOptionsButton${checkboxBoxCount}"onclick="addCheckBoxOptionButton(event)">Add Option</button>
         </div>`
             break;
 
@@ -95,15 +103,21 @@ function addQuestion(){
     questionDiv.innerHTML = htmlcode;
 
     document.querySelector("#form-container").appendChild(questionDiv);
-    console.log(document.querySelector("#formTitle").value, "    ",document.querySelector("#formDesc").value);
+    //console.log(document.querySelector("#formTitle").value, "    ",document.querySelector("#formDesc").value);
     
 }
 
 
 var MultipleChoiceOptionCount = 2;
-function addMultipleChoiceOptionButton() {
-    
+var MultipleCoiceBoxCount = 0;
+function addMultipleChoiceOptionButton(e) {
+    // console.log(e);
+    var string = e.target.id;
+    var boxNo = string.substr(16);
+    //console.log("fdgsssfgd",boxNo);
+
     MultipleChoiceOptionCount++;
+
     var newOptionDiv = document.createElement('div');
     newOptionDiv.className = 'form-check';
 
@@ -111,8 +125,8 @@ function addMultipleChoiceOptionButton() {
     newRadio.type = 'radio';
     newRadio.className = 'form-check-input';
     newRadio.name = 'mcq';
-    newRadio.id = 'mcqOption' + MultipleChoiceOptionCount;
-    newRadio.value = 'option' + MultipleChoiceOptionCount;
+    newRadio.id = 'mcqOption' + boxNo + MultipleChoiceOptionCount;
+    newRadio.value = 'option';
     newRadio.disabled = true;
 
     var newLabel = document.createElement('label');
@@ -122,38 +136,50 @@ function addMultipleChoiceOptionButton() {
     var newTextInput = document.createElement('input');
     newTextInput.type = 'text';
     newTextInput.className = 'form-control';
-    newTextInput.value = 'option' + MultipleChoiceOptionCount;
+    newTextInput.value = 'option';
 
     newLabel.appendChild(newTextInput);
 
     newOptionDiv.appendChild(newRadio);
     newOptionDiv.appendChild(newLabel);
     
-    document.querySelector("#mcq-options").appendChild(newOptionDiv);
+    document.querySelector("#mcq-options"+boxNo).appendChild(newOptionDiv);
 }
 
 var dropdownOptionCount = 2;
-function addDropdownOptionButton() {
+var dropdownBoxCount = 0;
+function addDropdownOptionButton(e) {
+    // console.log(e);
+    var string = e.target.id;
+    var boxNo = string.substr(21);
+    // console.log("fdgsssfgd",boxNo);
+
     dropdownOptionCount++;
     var newOptionP = document.createElement('p');
 
     var newTextInput = document.createElement('input');
     newTextInput.type = 'text';
     newTextInput.className = 'form-control';
-    newTextInput.value = 'option' + dropdownOptionCount;
+    newTextInput.value = 'option';
 
     newOptionP.appendChild(newTextInput);
 
-    document.querySelector("#dropdownQuestion").appendChild(newOptionP);
+    document.querySelector("#dropdownQuestion"+boxNo).appendChild(newOptionP);
 
 }
 
 
 
 var CheckboxOptionCount = 1;
-function addCheckBoxOptionButton() {
-    CheckboxOptionCount++;
+var checkboxBoxCount = 0;
+function addCheckBoxOptionButton(e) {
 
+    // console.log(e);
+    var string = e.target.id;
+    var boxNo = string.substr(21);
+    // console.log("fdgsssfgd",boxNo);
+
+    CheckboxOptionCount++;
     var newCheckboxDiv = document.createElement('div');
     newCheckboxDiv.className = 'form-check';
 
@@ -161,8 +187,8 @@ function addCheckBoxOptionButton() {
     newCheckbox.type = 'checkbox';
     newCheckbox.className = 'form-check-input';
     newCheckbox.name = 'checkbox';
-    newCheckbox.id = 'checkboxOption' + CheckboxOptionCount;
-    newCheckbox.value = 'option' + CheckboxOptionCount;
+    newCheckbox.id = 'checkboxOption' + boxNo + CheckboxOptionCount;
+    newCheckbox.value = 'option';
     newCheckbox.disabled = true;
 
     var newLabel = document.createElement('label');
@@ -172,13 +198,13 @@ function addCheckBoxOptionButton() {
     var newTextInput = document.createElement('input');
     newTextInput.type = 'text';
     newTextInput.className = 'form-control';
-    newTextInput.value = 'option' + CheckboxOptionCount;
+    newTextInput.value = 'option';
 
     newLabel.appendChild(newTextInput);
 
     newCheckboxDiv.appendChild(newCheckbox);
     newCheckboxDiv.appendChild(newLabel);
 
-    document.querySelector("#checkbox-options").appendChild(newCheckboxDiv);
+    document.querySelector("#checkbox-options"+boxNo).appendChild(newCheckboxDiv);
 }
 
