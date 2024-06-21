@@ -14,7 +14,7 @@ function generatePreviewHTML(){
     <link rel="stylesheet" href="/styles.css">
     <style>
         body {
-            background-color: #f0d8ff;
+            background-color: #FFE9FF;
         }          
 
         .custom-container {

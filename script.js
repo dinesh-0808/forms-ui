@@ -1,9 +1,18 @@
-function addQuestion(){
+document.querySelectorAll('.floating-button').forEach(box => {
+    box.addEventListener('click', addQuestion);
+});
+
+var shortTextBoxCount = 0;
+var longTextBoxCount = 0;
+
+
+
+function addQuestion(event){
     var questionDiv = document.createElement('div');
     questionDiv.className = "bg-white rounded shadow-sm p-4 question-box ";
     var questionType = null;
-
-    questionType = document.querySelector("#question-type").value;
+    console.log(event);
+    questionType = event.target.value;
     //console.log(questionType);
     
     var htmlcode = "";
@@ -24,7 +33,7 @@ function addQuestion(){
             <hr>
 
             <button type="button" class="btn btn-secondary mt-2 bottom-right" id="deleteButton1${shortTextBoxCount}" onclick="deleteQuestionBox(event)">
-                delete
+                DEL
             </button>
         </div>`;
             break;
@@ -45,7 +54,7 @@ function addQuestion(){
             <hr>
 
             <button type="button" class="btn btn-secondary mt-2 bottom-right" id="deleteButton2${longTextBoxCount}" onclick="deleteQuestionBox(event)">
-                delete
+                DEL
             </button>
         </div>`
             break;
@@ -61,20 +70,16 @@ function addQuestion(){
             </div>
             <br>
             <div id="mcq-options${MultipleCoiceBoxCount}">    
-                <div class="form-check">
+                <div class="form-check" id="MultipleChoiceBox${MultipleCoiceBoxCount}1">
                     <input type="radio" class="form-check-input" name="mcq" id="mcqOption${MultipleCoiceBoxCount}1" value="option" disabled=true>
                     <label class="form-check-label" for="mcqOption1"><input type="text" class='form-control' value="option"></label>
-                </div>
-                <div class="form-check">
-                    <input type="radio" class="form-check-input" name="mcq" id="mcqOption${MultipleCoiceBoxCount}2" value="option" disabled=true>
-                    <label class="form-check-label" for="mcqOption2"><input type="text" class='form-control' value="option"></label>
                 </div>
             </div>
             <button type="button" class="btn btn-secondary mt-2" id="mcqOptionsButton${MultipleCoiceBoxCount}" onclick="addMultipleChoiceOptionButton(event)">Add Option</button>
             <hr>
 
             <button type="button" class="btn btn-secondary mt-2 bottom-right" id="deleteButton3${MultipleCoiceBoxCount}" onclick="deleteQuestionBox(event)">
-                delete
+                DEL
             </button>
         </div>`
             break;
@@ -90,14 +95,14 @@ function addQuestion(){
             </div>
             <br>
             <div class="form-control" id="dropdownQuestion${dropdownBoxCount}">
-                <p><input type="text" class='form-control' value="option"></p>
-                <p><input type="text" class='form-control' value="option"></p>
+                <p id="dropdownBox${dropdownBoxCount}1"><input type="text" class='form-control' value="option" width="10px"></p>
+                
             </div>
             <button type="button" class="btn btn-secondary mt-2" id="dropdownOptionsButton${dropdownBoxCount}" onclick="addDropdownOptionButton(event)">Add Option</button>
             <hr>
 
             <button type="button" class="btn btn-secondary mt-2 bottom-right" id="deleteButton4${dropdownBoxCount}"  onclick="deleteQuestionBox(event)">
-                delete
+                DEL
             </button>
         </div>`
             break;
@@ -113,7 +118,7 @@ function addQuestion(){
             </div>
             <br>
             <div id="checkbox-options${checkboxBoxCount}">
-                <div class="form-check">
+                <div class="form-check" id="checkboxBox${checkboxBoxCount}1">
                     <input class="form-check-input" type="checkbox" id="checkboxOption1" name="checkbox" value="option1" disabled=true>
                     <label class="form-check-label" for="checkboxOption1"><input type="text" class='form-control' value="option"></label>
                 </div>
@@ -121,8 +126,8 @@ function addQuestion(){
             <button type="button" class="btn btn-secondary mt-2" id="checkboxOptionsButton${checkboxBoxCount}"onclick="addCheckBoxOptionButton(event)">Add Option</button>
             <hr>
 
-            <button type="button" class="btn btn-secondary mt-2 bottom-right" id="deleteButton5${checkboxBoxCount}" onclick="deleteQuestionBox(event)>
-                delete
+            <button type="button" class="btn btn-secondary mt-2 bottom-right" id="deleteButton5${checkboxBoxCount}" onclick="deleteQuestionBox(event)">
+                DEL
             </button>
 
         </div>`
@@ -146,7 +151,7 @@ function addQuestion(){
 }
 
 
-var MultipleChoiceOptionCount = 2;
+var MultipleChoiceOptionCount = 1;
 var MultipleCoiceBoxCount = 0;
 function addMultipleChoiceOptionButton(e) {
     // console.log(e);
@@ -158,6 +163,7 @@ function addMultipleChoiceOptionButton(e) {
 
     var newOptionDiv = document.createElement('div');
     newOptionDiv.className = 'form-check';
+    newOptionDiv.setAttribute('id','MultipleChoiceBox'+MultipleCoiceBoxCount+MultipleChoiceOptionCount);
 
     var newRadio = document.createElement('input');
     newRadio.type = 'radio';
@@ -178,13 +184,41 @@ function addMultipleChoiceOptionButton(e) {
 
     newLabel.appendChild(newTextInput);
 
+    // creating option delete button
+    var button = document.createElement('button');
+    button.setAttribute('type', 'button');
+    button.setAttribute("id","mcqOptionDeleteButton"+MultipleCoiceBoxCount+MultipleChoiceOptionCount);
+    button.classList.add('btn', 'btn-secondary', 'mt-2', 'mcqOptionDeleteButton');
+
+    // Create the <i> element for Font Awesome icon
+    var icon = document.createElement('i');
+    icon.classList.add('fa-solid', 'fa-xmark');
+
+    // Append the <i> element to the button
+    button.appendChild(icon);
+
     newOptionDiv.appendChild(newRadio);
     newOptionDiv.appendChild(newLabel);
-    
+    newOptionDiv.appendChild(button);
     document.querySelector("#mcq-options"+boxNo).appendChild(newOptionDiv);
+
+    document.querySelectorAll('.mcqOptionDeleteButton').forEach(box => {
+        box.addEventListener('click', deleteMcqOption);
+    });
 }
 
-var dropdownOptionCount = 2;
+function deleteMcqOption(e) {
+    var string = e.target.id;
+    var boxNo = string.substr(21);
+    console.log(e);
+    var div = document.getElementById('mcqOptionDeleteButton'+boxNo);
+    var parent = div.parentNode;
+    div = document.getElementById('MultipleChoiceBox'+boxNo);
+    parent.parentNode.removeChild(div);
+
+}
+
+var dropdownOptionCount = 1;
 var dropdownBoxCount = 0;
 function addDropdownOptionButton(e) {
     // console.log(e);
@@ -194,18 +228,46 @@ function addDropdownOptionButton(e) {
 
     dropdownOptionCount++;
     var newOptionP = document.createElement('p');
+    newOptionP.setAttribute('id',"dropdownBox"+dropdownBoxCount+dropdownOptionCount);
 
     var newTextInput = document.createElement('input');
     newTextInput.type = 'text';
     newTextInput.className = 'form-control';
     newTextInput.value = 'option';
 
+    // creating option delete button
+    var button = document.createElement('button');
+    button.setAttribute('type', 'button');
+    button.setAttribute("id","dropdownOptionDeleteButton"+dropdownBoxCount+dropdownOptionCount);
+    button.classList.add('btn', 'btn-secondary', 'mt-2', 'dropdownOptionDeleteButton');
+
+    // Create the <i> element for Font Awesome icon
+    var icon = document.createElement('i');
+    icon.classList.add('fa-solid', 'fa-xmark');
+
+    // Append the <i> element to the button
+    button.appendChild(icon);
+
     newOptionP.appendChild(newTextInput);
+    newOptionP.appendChild(button);
 
     document.querySelector("#dropdownQuestion"+boxNo).appendChild(newOptionP);
 
+    document.querySelectorAll('.dropdownOptionDeleteButton').forEach(box => {
+        box.addEventListener('click', deleteDropdownOption);
+    });
+
 }
 
+function deleteDropdownOption(e) {
+    var string = e.target.id;
+    var boxNo = string.substr(26);
+    console.log(e);
+    var div = document.getElementById('dropdownOptionDeleteButton'+boxNo);
+    var parent = div.parentNode;
+    div = document.getElementById('dropdownBox'+boxNo);
+    parent.parentNode.removeChild(div);
+}
 
 
 var CheckboxOptionCount = 1;
@@ -220,6 +282,7 @@ function addCheckBoxOptionButton(e) {
     CheckboxOptionCount++;
     var newCheckboxDiv = document.createElement('div');
     newCheckboxDiv.className = 'form-check';
+    newCheckboxDiv.setAttribute('id',"checkboxBox"+checkboxBoxCount+CheckboxOptionCount);
 
     var newCheckbox = document.createElement('input');
     newCheckbox.type = 'checkbox';
@@ -240,14 +303,42 @@ function addCheckBoxOptionButton(e) {
 
     newLabel.appendChild(newTextInput);
 
+    // creating option delete button
+    var button = document.createElement('button');
+    button.setAttribute('type', 'button');
+    button.setAttribute("id","checkboxOptionDeleteButton"+checkboxBoxCount+CheckboxOptionCount);
+    button.classList.add('btn', 'btn-secondary', 'mt-2', 'checkboxOptionDeleteButton');
+
+    // Create the <i> element for Font Awesome icon
+    var icon = document.createElement('i');
+    icon.classList.add('fa-solid', 'fa-xmark');
+
+    // Append the <i> element to the button
+    button.appendChild(icon);
+
     newCheckboxDiv.appendChild(newCheckbox);
     newCheckboxDiv.appendChild(newLabel);
+    newCheckboxDiv.appendChild(button);
 
     document.querySelector("#checkbox-options"+boxNo).appendChild(newCheckboxDiv);
+
+    document.querySelectorAll('.checkboxOptionDeleteButton').forEach(box => {
+        box.addEventListener('click', deleteCheckboxOption);
+    });
+
 }
 
-var shortTextBoxCount = 0;
-var longTextBoxCount = 0;
+
+function deleteCheckboxOption(e) {
+    var string = e.target.id;
+    var boxNo = string.substr(26);
+    console.log(e);
+    var div = document.getElementById('checkboxOptionDeleteButton'+boxNo);
+    var parent = div.parentNode;
+    div = document.getElementById('checkboxBox'+boxNo);
+    parent.parentNode.removeChild(div);
+}
+
 
 // give css class left border blue
 function handleQuestionBoxClick(event) {
