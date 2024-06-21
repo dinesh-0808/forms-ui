@@ -26,6 +26,9 @@ function generatePreviewHTML(){
         .question-box {
             margin-bottom: 20px;
         }
+        .title-box {
+            border-top: 5px solid rgb(103, 58, 183);
+        }
     </style>
     </head>
     <body>
@@ -44,7 +47,7 @@ function generatePreviewHTML(){
                 let formTitle = child.querySelector("#formTitle").value;
                 let formDesc = child.querySelector("#formDesc").value;
                 questionHTML = `
-                <div class="bg-white rounded shadow-sm p-4 question-box">
+                <div class="bg-white rounded shadow-sm p-4 question-box title-box">
                     <div class="form-group">
                         <h2>${formTitle}</h2>
                     </div>
