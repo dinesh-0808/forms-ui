@@ -1,3 +1,4 @@
+var mcqBox = 0;
 function generatePreviewHTML(){
     let formContainer = document.getElementById('form-container');
 
@@ -85,14 +86,15 @@ function generatePreviewHTML(){
                 `;
             } else if (child.querySelector('.multipleChoice')) {
                 // Multiple Choice Question
+                mcqBox++;
                 let questionText = child.querySelector('.multipleChoice .form-group input').value;
                 questionHTML = `<div class="bg-white rounded shadow-sm p-4 question-box">
-                <div class="multipleChoice">        
+                <div class="multipleChoice" >        
                 <div class="form-group">
                             <h4><strong>${questionText}</strong></h4>
                         </div>
                         <br>
-                        <div class="mcq-options">
+                        <div class="mcq-options" id="multipleChoice${mcqBox}>
                         `;
                 
                 //let optionsContainer = document.createElement('div');
@@ -100,9 +102,9 @@ function generatePreviewHTML(){
                 options.forEach(option => {
                     let optionText = option.querySelector('label input').value;
                     questionHTML += `
-                    <div class="form-check">
-                        <input type="radio" class="form-check-input" name="mcq" id="mcqOption${i+1}" value="option${i+1}">
-                        <label class="form-check-label" for="mcqOption${i+1}">${optionText}</label>
+                    <div class="form-check" id="multipleChoice${mcqBox}${i+1}">
+                        <input type="radio" class="form-check-input" name="mcq${mcqBox}${i+1}" id="mcqOption${mcqBox}${i+1}" value="option${mcqBox}${i+1}">
+                        <label class="form-check-label" for="mcqOption${mcqBox}${i+1}">${optionText}</label>
                     </div>
                     
                     `;

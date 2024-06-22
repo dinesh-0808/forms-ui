@@ -33,7 +33,7 @@ function addQuestion(event){
             <hr>
 
             <button type="button" class="btn btn-secondary mt-2 bottom-right" id="deleteButton1${shortTextBoxCount}" onclick="deleteQuestionBox(event)">
-                DEL
+                <i class="fa-solid fa-trash"></i>
             </button>
         </div>`;
             break;
@@ -54,7 +54,7 @@ function addQuestion(event){
             <hr>
 
             <button type="button" class="btn btn-secondary mt-2 bottom-right" id="deleteButton2${longTextBoxCount}" onclick="deleteQuestionBox(event)">
-                DEL
+                <i class="fa-solid fa-trash"></i>
             </button>
         </div>`
             break;
@@ -79,7 +79,7 @@ function addQuestion(event){
             <hr>
 
             <button type="button" class="btn btn-secondary mt-2 bottom-right" id="deleteButton3${MultipleCoiceBoxCount}" onclick="deleteQuestionBox(event)">
-                DEL
+                <i class="fa-solid fa-trash"></i>
             </button>
         </div>`
             break;
@@ -95,14 +95,14 @@ function addQuestion(event){
             </div>
             <br>
             <div class="form-control" id="dropdownQuestion${dropdownBoxCount}">
-                <p id="dropdownBox${dropdownBoxCount}1"><input type="text" class='form-control' value="option" width="10px"></p>
+                <p id="dropdownBox${dropdownBoxCount}1"><input type="text" width="50" class='form-control dropdownOptions' value="option" width="10px"></p>
                 
             </div>
             <button type="button" class="btn btn-secondary mt-2" id="dropdownOptionsButton${dropdownBoxCount}" onclick="addDropdownOptionButton(event)">Add Option</button>
             <hr>
 
             <button type="button" class="btn btn-secondary mt-2 bottom-right" id="deleteButton4${dropdownBoxCount}"  onclick="deleteQuestionBox(event)">
-                DEL
+                <i class="fa-solid fa-trash"></i>
             </button>
         </div>`
             break;
@@ -127,7 +127,7 @@ function addQuestion(event){
             <hr>
 
             <button type="button" class="btn btn-secondary mt-2 bottom-right" id="deleteButton5${checkboxBoxCount}" onclick="deleteQuestionBox(event)">
-                DEL
+                <i class="fa-solid fa-trash"></i>
             </button>
 
         </div>`
@@ -188,7 +188,7 @@ function addMultipleChoiceOptionButton(e) {
     var button = document.createElement('button');
     button.setAttribute('type', 'button');
     button.setAttribute("id","mcqOptionDeleteButton"+MultipleCoiceBoxCount+MultipleChoiceOptionCount);
-    button.classList.add('btn', 'btn-secondary', 'mt-2', 'mcqOptionDeleteButton');
+    button.classList.add('btn', 'btn-secondary', 'mt-2', 'mcqOptionDeleteButton', 'optionsDeleteButton');
 
     // Create the <i> element for Font Awesome icon
     var icon = document.createElement('i');
@@ -232,14 +232,14 @@ function addDropdownOptionButton(e) {
 
     var newTextInput = document.createElement('input');
     newTextInput.type = 'text';
-    newTextInput.className = 'form-control';
+    newTextInput.classList.add('form-control', 'dropdownOptions');
     newTextInput.value = 'option';
 
     // creating option delete button
     var button = document.createElement('button');
     button.setAttribute('type', 'button');
     button.setAttribute("id","dropdownOptionDeleteButton"+dropdownBoxCount+dropdownOptionCount);
-    button.classList.add('btn', 'btn-secondary', 'mt-2', 'dropdownOptionDeleteButton');
+    button.classList.add('btn', 'btn-secondary', 'mt-2', 'dropdownOptionDeleteButton','optionsDeleteButton');
 
     // Create the <i> element for Font Awesome icon
     var icon = document.createElement('i');
@@ -307,7 +307,7 @@ function addCheckBoxOptionButton(e) {
     var button = document.createElement('button');
     button.setAttribute('type', 'button');
     button.setAttribute("id","checkboxOptionDeleteButton"+checkboxBoxCount+CheckboxOptionCount);
-    button.classList.add('btn', 'btn-secondary', 'mt-2', 'checkboxOptionDeleteButton');
+    button.classList.add('btn', 'btn-secondary', 'mt-2', 'checkboxOptionDeleteButton','optionsDeleteButton');
 
     // Create the <i> element for Font Awesome icon
     var icon = document.createElement('i');
