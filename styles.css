@@ -22,45 +22,45 @@ body {
 
  
 .preview-button {
-    position: relative; /* Needed for absolute positioning inside it */
-    padding: 20px; /* Adjust padding to give space for content */
-    background-color: white; /* Background color */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+    position: relative; 
+    padding: 20px; 
+    background-color: white; 
+    border-radius: 8px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-top: 5px solid rgb(103, 58, 183);
     border-left: 5px solid rgb(71, 138, 201);
 }
 
 /* Style for the button */
 .preview-button .btn-preview {
-    position: absolute; /* Absolute positioning within the relative parent */
-    top: 10px; /* Distance from the top edge */
-    right: 10px; /* Distance from the right edge */
-    background-color: white; /* White background for the button */
-    color: #6c757d; /* Icon color to match button's previous color */
-    padding: 8px; /* Padding around the icon */
-    border: 0px solid #6c757d; /* Border to outline the button */
-    border-radius: 50%; /* Make the button circular */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s, color 0.3s; /* Smooth transitions */
-    display: flex; /* Flexbox to center icon */
-    justify-content: center; /* Center icon horizontally */
-    align-items: center; /* Center icon vertically */
-    width: 40px; /* Fixed width for circular shape */
-    height: 40px; /* Fixed height for circular shape */
+    position: absolute; 
+    top: 10px; 
+    right: 10px; 
+    background-color: white; 
+    color: #6c757d;
+    padding: 8px; 
+    border: 0px solid #6c757d;
+    border-radius: 50%;
+    cursor: pointer; 
+    transition: background-color 0.3s, color 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px; 
+    height: 40px; 
 }
 
 /* Hover effect for the button */
 .preview-button .btn-preview:hover {
-    background-color: #6c757d; /* Darker background on hover */
-    color: white; /* Darker shade on hover */
+    background-color: #6c757d;
+    color: white;
 }
 
 
 
 .form-group select{
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
     border: 2px solid rgba(108, 117, 125, 0.2);
     background-color: white;
     padding: 20px;
@@ -70,15 +70,15 @@ body {
     
     /* Remove default border */
     padding-top: 2px;
-            background-color: transparent; /* Ensure background is transparent to blend with parent */
-            font-size: 16px; /* Adjust font size for consistency */
-            padding: 8px; /* Add some padding for better appearance */
-            outline: none; /* Remove focus outline */
+            background-color: transparent;
+            font-size: 16px; 
+            padding: 8px; 
+            outline: none; 
             appearance: none; 
 }
 
 .active-border {
-    border-left: 5px solid rgb(71, 138, 201); /* Adjust the width and color as needed */
+    border-left: 5px solid rgb(71, 138, 201); 
 
 }
 
@@ -150,4 +150,18 @@ body {
 .dropdownOptions, text {
     display: inline;
     width: 290px;
+}
+
+
+.addButton {
+    position: absolute;
+    top: 10px; /* Adjust as needed */
+    right: 10px; /* Adjust as needed */
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #999;
+    transition: color 0.3s;
+    margin-right: 30px;
+    border-radius: 27px;
 }

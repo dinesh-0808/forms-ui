@@ -9,7 +9,7 @@ var longTextBoxCount = 0;
 
 function addQuestion(event){
     var questionDiv = document.createElement('div');
-    questionDiv.className = "bg-white rounded shadow-sm p-4 question-box ";
+    questionDiv.className = "bg-white rounded shadow-sm p-4 question-box";
     var questionType = null;
     console.log(event);
     questionType = event.target.value;
@@ -24,7 +24,7 @@ function addQuestion(event){
         <h6>Short Text</h6>
         <div class="shortText">
             <div class="form-group">
-                <input type="text" class="form-control" id="inputHeader" aria-describedby="headerHelp" placeholder="Question">
+                <input type="text" class="form-control" id="inputHeader" aria-describedby="headerHelp" placeholder="Question" value="Question">
             </div>
             <br>
             <div class="form-group">
@@ -32,8 +32,8 @@ function addQuestion(event){
             </div>
             <hr>
 
-            <button type="button" class="btn btn-secondary mt-2 bottom-right" id="deleteButton1${shortTextBoxCount}" onclick="deleteQuestionBox(event)">
-                <i class="fa-solid fa-trash"></i>
+            <button type="button" class="btn btn-secondary mt-2 bottom-right" id="deleteButton1${shortTextBoxCount}" deleteButton="1${shortTextBoxCount}" onclick="deleteQuestionBox(event)">
+                <i class="fa-solid fa-trash" deleteButton="1${shortTextBoxCount}"></i>
             </button>
         </div>`;
             break;
@@ -45,7 +45,7 @@ function addQuestion(event){
         <h6>Long Text</h6>
         <div class="longText">
             <div class="form-group">
-                <input type="text" class="form-control" id="inputHeader" aria-describedby="headerHelp" placeholder="Question">
+                <input type="text" class="form-control" id="inputHeader" aria-describedby="headerHelp" placeholder="Question" value="Question">
             </div>
             <br>
             <div class="form-group">
@@ -53,8 +53,8 @@ function addQuestion(event){
             </div>
             <hr>
 
-            <button type="button" class="btn btn-secondary mt-2 bottom-right" id="deleteButton2${longTextBoxCount}" onclick="deleteQuestionBox(event)">
-                <i class="fa-solid fa-trash"></i>
+            <button type="button" class="btn btn-secondary mt-2 bottom-right" deleteButton="2${longTextBoxCount}" onclick="deleteQuestionBox(event)">
+                <i class="fa-solid fa-trash" deleteButton="2${longTextBoxCount}"></i>
             </button>
         </div>`
             break;
@@ -66,7 +66,7 @@ function addQuestion(event){
         <h6>Multiple Choice</h6>
         <div class="multipleChoice">
             <div class="form-group">
-                <input type="text" class="form-control" id="inputHeader" aria-describedby="headerHelp" placeholder="Question">
+                <input type="text" class="form-control" id="inputHeader" aria-describedby="headerHelp" placeholder="Question" value="Question">
             </div>
             <br>
             <div id="mcq-options${MultipleCoiceBoxCount}">    
@@ -75,11 +75,11 @@ function addQuestion(event){
                     <label class="form-check-label" for="mcqOption1"><input type="text" class='form-control' value="option"></label>
                 </div>
             </div>
-            <button type="button" class="btn btn-secondary mt-2" id="mcqOptionsButton${MultipleCoiceBoxCount}" onclick="addMultipleChoiceOptionButton(event)">Add Option</button>
+            <button type="button" class="btn btn-secondary mt-2 addButton" id="mcqOptionsButton${MultipleCoiceBoxCount}" mcqOptionsButton="${MultipleChoiceOptionCount}" onclick="addMultipleChoiceOptionButton(event)"><i class="fa-solid fa-plus" mcqOptionsButton="${MultipleChoiceOptionCount}"></i></button>
             <hr>
 
-            <button type="button" class="btn btn-secondary mt-2 bottom-right" id="deleteButton3${MultipleCoiceBoxCount}" onclick="deleteQuestionBox(event)">
-                <i class="fa-solid fa-trash"></i>
+            <button type="button" class="btn btn-secondary mt-2 bottom-right" deleteButton="3${MultipleCoiceBoxCount}" onclick="deleteQuestionBox(event)">
+                <i class="fa-solid fa-trash" deleteButton="3${MultipleCoiceBoxCount}"></i>
             </button>
         </div>`
             break;
@@ -91,18 +91,18 @@ function addQuestion(event){
         <h6>Drop Down</h6>
         <div class="dropDown">
             <div class="form-group">
-                <input type="text" class="form-control" id="inputHeader" aria-describedby="headerHelp" placeholder="Question">
+                <input type="text" class="form-control" id="inputHeader" aria-describedby="headerHelp" placeholder="Question" value="Question">
             </div>
             <br>
             <div class="form-control" id="dropdownQuestion${dropdownBoxCount}">
                 <p id="dropdownBox${dropdownBoxCount}1"><input type="text" width="50" class='form-control dropdownOptions' value="option" width="10px"></p>
                 
             </div>
-            <button type="button" class="btn btn-secondary mt-2" id="dropdownOptionsButton${dropdownBoxCount}" onclick="addDropdownOptionButton(event)">Add Option</button>
+            <button type="button" class="btn btn-secondary mt-2 addButton" id="dropdownOptionsButton${dropdownBoxCount}" dropdownOptionsButton="${dropdownBoxCount}" onclick="addDropdownOptionButton(event)"><i class="fa-solid fa-plus" dropdownOptionsButton="${dropdownBoxCount}"></i></button>
             <hr>
 
-            <button type="button" class="btn btn-secondary mt-2 bottom-right" id="deleteButton4${dropdownBoxCount}"  onclick="deleteQuestionBox(event)">
-                <i class="fa-solid fa-trash"></i>
+            <button type="button" class="btn btn-secondary mt-2 bottom-right" deleteButton="4${dropdownBoxCount}"  onclick="deleteQuestionBox(event)">
+                <i class="fa-solid fa-trash" deleteButton="4${dropdownBoxCount}"></i>
             </button>
         </div>`
             break;
@@ -114,7 +114,7 @@ function addQuestion(event){
         <h6>Checkbox</h6>
         <div class="CheckBox">
             <div class="form-group">
-                <input type="text" class="form-control" id="inputHeader" aria-describedby="headerHelp" placeholder="Question">
+                <input type="text" class="form-control" id="inputHeader" aria-describedby="headerHelp" placeholder="Question" value="Question">
             </div>
             <br>
             <div id="checkbox-options${checkboxBoxCount}">
@@ -123,11 +123,11 @@ function addQuestion(event){
                     <label class="form-check-label" for="checkboxOption1"><input type="text" class='form-control' value="option"></label>
                 </div>
             </div>
-            <button type="button" class="btn btn-secondary mt-2" id="checkboxOptionsButton${checkboxBoxCount}"onclick="addCheckBoxOptionButton(event)">Add Option</button>
+            <button type="button" class="btn btn-secondary mt-2 addButton" id="checkboxOptionsButton${checkboxBoxCount}"onclick="addCheckBoxOptionButton(event)"><i class="fa-solid fa-plus"></i></button>
             <hr>
 
-            <button type="button" class="btn btn-secondary mt-2 bottom-right" id="deleteButton5${checkboxBoxCount}" onclick="deleteQuestionBox(event)">
-                <i class="fa-solid fa-trash"></i>
+            <button type="button" class="btn btn-secondary mt-2 bottom-right" deleteButton="5${checkboxBoxCount}" onclick="deleteQuestionBox(event)">
+                <i class="fa-solid fa-trash" deleteButton="5${checkboxBoxCount}"></i>
             </button>
 
         </div>`
@@ -155,8 +155,8 @@ var MultipleChoiceOptionCount = 1;
 var MultipleCoiceBoxCount = 0;
 function addMultipleChoiceOptionButton(e) {
     // console.log(e);
-    var string = e.target.id;
-    var boxNo = string.substr(16);
+    var boxNo = e.target.getAttribute('mcqOptionsButton');
+    // var boxNo = string.substr(16);
     //console.log("fdgsssfgd",boxNo);
 
     MultipleChoiceOptionCount++;
@@ -222,8 +222,8 @@ var dropdownOptionCount = 1;
 var dropdownBoxCount = 0;
 function addDropdownOptionButton(e) {
     // console.log(e);
-    var string = e.target.id;
-    var boxNo = string.substr(21);
+    var boxNo = e.target.getAttribute('');
+    // var boxNo = string.substr(21);
     // console.log("fdgsssfgd",boxNo);
 
     dropdownOptionCount++;
@@ -359,9 +359,10 @@ document.querySelectorAll('.question-box').forEach(box => {
 
 // delete the question box
 function deleteQuestionBox(e) {
-    var string = e.target.id;
-    var boxNo = string.substr(12);
+    var boxNo = e.target.getAttribute('deleteButton');
     console.log(e);
+    // var boxNo = string.substr(12);
+    // console.log(boxNo);
     var div = document.getElementById('question-box'+boxNo);
     div.parentNode.removeChild(div);
 
