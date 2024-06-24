@@ -1,18 +1,46 @@
+document.addEventListener('DOMContentLoaded', function () {
+    var formContainer = document.getElementById('form-container');
+
+    Sortable.create(formContainer, {
+        handle: '.drag-box',
+        animation: 150,
+        filter: '.title-box, .preview-button', // Exclude elements with these classes from dragging
+        onStart: function (evt) {
+            if (evt.item.classList.contains('title-box') || evt.item.classList.contains('preview-button')) {
+                evt.preventDefault(); // Prevent dragging these items
+            }
+        },
+        onEnd: function (evt) {
+            console.log('Item moved');
+            // Additional logic after item is moved
+            if (evt.item.classList.contains('title-box') || evt.item.classList.contains('preview-button')) {
+                // Revert the item to its original position if it's a title-box or preview-button
+                evt.from.insertBefore(evt.item, evt.from.childNodes[evt.oldIndex]);
+            }
+        },
+        onMove: function (evt) {
+            if (evt.dragged.classList.contains('title-box') || evt.dragged.classList.contains('preview-button')) {
+                return false; // Disable sorting of title-box or preview-button elements
+            }
+        }
+    });
+});
+
 document.querySelectorAll('.floating-button').forEach(box => {
     box.addEventListener('click', addQuestion);
 });
 
 var shortTextBoxCount = 0;
 var longTextBoxCount = 0;
-
+var DropDownOptionsBoxCount = 1;
 
 
 function addQuestion(event){
     var questionDiv = document.createElement('div');
-    questionDiv.className = "bg-white rounded shadow-sm p-4 question-box";
+    questionDiv.className = "bg-white rounded shadow-sm p-4 question-box drag-box";
     var questionType = null;
     console.log(event);
-    questionType = event.target.value;
+    questionType = event.target.tagName === 'I' ? event.target.parentElement.value : event.target.value;
     //console.log(questionType);
     
     var htmlcode = "";
@@ -20,11 +48,19 @@ function addQuestion(event){
         case "short-text":
             shortTextBoxCount++;
             questionDiv.id = "question-box1" + shortTextBoxCount;
+            questionDiv.setAttribute('question-box',`1${shortTextBoxCount}`);
+            DropDownOptionsBoxCount++;
             htmlcode = `
-        <h6>Short Text</h6>
         <div class="shortText">
-            <div class="form-group">
-                <input type="text" class="form-control" id="inputHeader" aria-describedby="headerHelp" placeholder="Question" value="Question">
+            <div class="form-group header">
+                <div class="question"><input type="text" class="form-control" id="inputHeader" aria-describedby="headerHelp" placeholder="Question" value="Question"></div>
+                <select class="dropdown" dropdown="${DropDownOptionsBoxCount}" onchange="dropdownChangeButton(event)">
+                    <option value="short-text" selected>Short Text</option>
+                    <option value="long-text">Long Text</option>
+                    <option value="multiple-choice">Multiple Choice</option>
+                    <option value="dropdown">Dropdown</option>
+                    <option value="checkboxes">Checkboxes</option>
+                </select>
             </div>
             <br>
             <div class="form-group">
@@ -40,12 +76,20 @@ function addQuestion(event){
         
         case "long-text":
             longTextBoxCount++;
-            questionDiv.id = "question-box2" + longTextBoxCount;
+            DropDownOptionsBoxCount++;
+            // questionDiv.id = "question-box2" + longTextBoxCount;
+            questionDiv.setAttribute('question-box',`2${longTextBoxCount}`);
                 htmlcode = `
-        <h6>Long Text</h6>
-        <div class="longText">
-            <div class="form-group">
-                <input type="text" class="form-control" id="inputHeader" aria-describedby="headerHelp" placeholder="Question" value="Question">
+            <div class="longText">
+            <div class="form-group header">
+                <div class="question"><input type="text" class="form-control" id="inputHeader" aria-describedby="headerHelp" placeholder="Question" value="Question"></div>
+                <select class="dropdown" dropdown="${DropDownOptionsBoxCount}" onchange="dropdownChangeButton(event)">
+                    <option value="short-text">Short Text</option>
+                    <option value="long-text" selected>Long Text</option>
+                    <option value="multiple-choice">Multiple Choice</option>
+                    <option value="dropdown">Dropdown</option>
+                    <option value="checkboxes">Checkboxes</option>
+                </select>
             </div>
             <br>
             <div class="form-group">
@@ -61,12 +105,20 @@ function addQuestion(event){
 
         case "multiple-choice":
             MultipleCoiceBoxCount++;
+            DropDownOptionsBoxCount++;
             questionDiv.id = "question-box3" + MultipleCoiceBoxCount;
+            questionDiv.setAttribute('question-box',`3${MultipleCoiceBoxCount}`);
             htmlcode = `
-        <h6>Multiple Choice</h6>
-        <div class="multipleChoice">
-            <div class="form-group">
-                <input type="text" class="form-control" id="inputHeader" aria-describedby="headerHelp" placeholder="Question" value="Question">
+            <div class="multipleChoice">
+            <div class="form-group header">
+                <div class="question"><input type="text" class="form-control" id="inputHeader" aria-describedby="headerHelp" placeholder="Question" value="Question"></div>
+                <select class="dropdown" dropdown="${DropDownOptionsBoxCount}" onchange="dropdownChangeButton(event)">
+                    <option value="short-text">Short Text</option>
+                    <option value="long-text">Long Text</option>
+                    <option value="multiple-choice" selected>Multiple Choice</option>
+                    <option value="dropdown">Dropdown</option>
+                    <option value="checkboxes">Checkboxes</option>
+                </select>
             </div>
             <br>
             <div id="mcq-options${MultipleCoiceBoxCount}">    
@@ -75,7 +127,7 @@ function addQuestion(event){
                     <label class="form-check-label" for="mcqOption1"><input type="text" class='form-control' value="option"></label>
                 </div>
             </div>
-            <button type="button" class="btn btn-secondary mt-2 addButton" id="mcqOptionsButton${MultipleCoiceBoxCount}" mcqOptionsButton="${MultipleChoiceOptionCount}" onclick="addMultipleChoiceOptionButton(event)"><i class="fa-solid fa-plus" mcqOptionsButton="${MultipleChoiceOptionCount}"></i></button>
+            <button type="button" class="btn btn-secondary mt-2 addButton" id="mcqOptionsButton${MultipleCoiceBoxCount}" mcqOptionsButton="${MultipleCoiceBoxCount}" onclick="addMultipleChoiceOptionButton(event)"><i class="fa-solid fa-plus" mcqOptionsButton="${MultipleCoiceBoxCount}"></i></button>
             <hr>
 
             <button type="button" class="btn btn-secondary mt-2 bottom-right" deleteButton="3${MultipleCoiceBoxCount}" onclick="deleteQuestionBox(event)">
@@ -86,12 +138,20 @@ function addQuestion(event){
 
         case "dropdown":
             dropdownBoxCount++;
+            DropDownOptionsBoxCount++;
             questionDiv.id = "question-box4" + dropdownBoxCount;
+            questionDiv.setAttribute('question-box',`4${dropdownBoxCount}`);
             htmlcode = `
-        <h6>Drop Down</h6>
-        <div class="dropDown">
-            <div class="form-group">
-                <input type="text" class="form-control" id="inputHeader" aria-describedby="headerHelp" placeholder="Question" value="Question">
+            <div class="dropDown">
+            <div class="form-group header">
+                <div class="question"><input type="text" class="form-control" id="inputHeader" aria-describedby="headerHelp" placeholder="Question" value="Question"></div>
+                <select class="dropdown" dropdown="${DropDownOptionsBoxCount}" onchange="dropdownChangeButton(event)">
+                    <option value="short-text">Short Text</option>
+                    <option value="long-text">Long Text</option>
+                    <option value="multiple-choice">Multiple Choice</option>
+                    <option value="dropdown" selected>Dropdown</option>
+                    <option value="checkboxes">Checkboxes</option>
+                </select>
             </div>
             <br>
             <div class="form-control" id="dropdownQuestion${dropdownBoxCount}">
@@ -100,7 +160,6 @@ function addQuestion(event){
             </div>
             <button type="button" class="btn btn-secondary mt-2 addButton" id="dropdownOptionsButton${dropdownBoxCount}" dropdownOptionsButton="${dropdownBoxCount}" onclick="addDropdownOptionButton(event)"><i class="fa-solid fa-plus" dropdownOptionsButton="${dropdownBoxCount}"></i></button>
             <hr>
-
             <button type="button" class="btn btn-secondary mt-2 bottom-right" deleteButton="4${dropdownBoxCount}"  onclick="deleteQuestionBox(event)">
                 <i class="fa-solid fa-trash" deleteButton="4${dropdownBoxCount}"></i>
             </button>
@@ -109,12 +168,20 @@ function addQuestion(event){
 
         case "checkboxes":
             checkboxBoxCount++;
+            DropDownOptionsBoxCount++;
             questionDiv.id = "question-box5" + checkboxBoxCount;
+            questionDiv.setAttribute('question-box',`5${checkboxBoxCount}`);
             htmlcode = `
-        <h6>Checkbox</h6>
-        <div class="CheckBox">
-            <div class="form-group">
-                <input type="text" class="form-control" id="inputHeader" aria-describedby="headerHelp" placeholder="Question" value="Question">
+            <div class="CheckBox">
+            <div class="form-group header">
+                <div class="question"><input type="text" class="form-control" id="inputHeader" aria-describedby="headerHelp" placeholder="Question" value="Question"></div>
+                <select class="dropdown" dropdown="${DropDownOptionsBoxCount}" onchange="dropdownChangeButton(event)">
+                    <option value="short-text">Short Text</option>
+                    <option value="long-text">Long Text</option>
+                    <option value="multiple-choice">Multiple Choice</option>
+                    <option value="dropdown">Dropdown</option>
+                    <option value="checkboxes" selected>Checkboxes</option>
+                </select>
             </div>
             <br>
             <div id="checkbox-options${checkboxBoxCount}">
@@ -123,7 +190,7 @@ function addQuestion(event){
                     <label class="form-check-label" for="checkboxOption1"><input type="text" class='form-control' value="option"></label>
                 </div>
             </div>
-            <button type="button" class="btn btn-secondary mt-2 addButton" id="checkboxOptionsButton${checkboxBoxCount}"onclick="addCheckBoxOptionButton(event)"><i class="fa-solid fa-plus"></i></button>
+            <button type="button" class="btn btn-secondary mt-2 addButton" id="checkboxOptionsButton${checkboxBoxCount}" checkboxOptionsButton="${checkboxBoxCount}" onclick="addCheckBoxOptionButton(event)"><i class="fa-solid fa-plus" checkboxOptionsButton="${checkboxBoxCount}"></i></button>
             <hr>
 
             <button type="button" class="btn btn-secondary mt-2 bottom-right" deleteButton="5${checkboxBoxCount}" onclick="deleteQuestionBox(event)">
@@ -141,7 +208,7 @@ function addQuestion(event){
     questionDiv.innerHTML = htmlcode;
     console.log(questionDiv);
     document.querySelector("#form-container").appendChild(questionDiv);
-    //console.log(document.querySelector("#formTitle").value, "    ",document.querySelector("#formDesc").value);
+   
 
     // adding click event listeners to all
     document.querySelectorAll('.question-box').forEach(box => {
@@ -152,10 +219,10 @@ function addQuestion(event){
 
 
 var MultipleChoiceOptionCount = 1;
-var MultipleCoiceBoxCount = 0;
+var MultipleCoiceBoxCount = 1;
 function addMultipleChoiceOptionButton(e) {
-    // console.log(e);
     var boxNo = e.target.getAttribute('mcqOptionsButton');
+    console.log(boxNo);
     // var boxNo = string.substr(16);
     //console.log("fdgsssfgd",boxNo);
 
@@ -208,7 +275,7 @@ function addMultipleChoiceOptionButton(e) {
 }
 
 function deleteMcqOption(e) {
-    var string = e.target.id;
+    var string = e.target.tagName === 'I' ? e.target.parentElement.id : e.target.id;
     var boxNo = string.substr(21);
     console.log(e);
     var div = document.getElementById('mcqOptionDeleteButton'+boxNo);
@@ -222,7 +289,7 @@ var dropdownOptionCount = 1;
 var dropdownBoxCount = 0;
 function addDropdownOptionButton(e) {
     // console.log(e);
-    var boxNo = e.target.getAttribute('');
+    var boxNo = e.target.getAttribute('dropdownOptionsButton');
     // var boxNo = string.substr(21);
     // console.log("fdgsssfgd",boxNo);
 
@@ -243,7 +310,7 @@ function addDropdownOptionButton(e) {
 
     // Create the <i> element for Font Awesome icon
     var icon = document.createElement('i');
-    icon.classList.add('fa-solid', 'fa-xmark');
+    icon.classList.add('fa-solid', 'fa-xmark', 'fa-drop');
 
     // Append the <i> element to the button
     button.appendChild(icon);
@@ -260,7 +327,8 @@ function addDropdownOptionButton(e) {
 }
 
 function deleteDropdownOption(e) {
-    var string = e.target.id;
+    var string = e.target.tagName === 'I' ? e.target.parentElement.id : e.target.id;
+    
     var boxNo = string.substr(26);
     console.log(e);
     var div = document.getElementById('dropdownOptionDeleteButton'+boxNo);
@@ -275,8 +343,8 @@ var checkboxBoxCount = 0;
 function addCheckBoxOptionButton(e) {
 
     // console.log(e);
-    var string = e.target.id;
-    var boxNo = string.substr(21);
+    var boxNo = e.target.getAttribute('checkboxOptionsButton');
+    // var boxNo = string.substr(21);
     // console.log("fdgsssfgd",boxNo);
 
     CheckboxOptionCount++;
@@ -330,7 +398,7 @@ function addCheckBoxOptionButton(e) {
 
 
 function deleteCheckboxOption(e) {
-    var string = e.target.id;
+    var string = e.target.tagName === 'I' ? e.target.parentElement.id : e.target.id;
     var boxNo = string.substr(26);
     console.log(e);
     var div = document.getElementById('checkboxOptionDeleteButton'+boxNo);
@@ -362,7 +430,7 @@ function deleteQuestionBox(e) {
     var boxNo = e.target.getAttribute('deleteButton');
     console.log(e);
     // var boxNo = string.substr(12);
-    // console.log(boxNo);
+    console.log(boxNo);
     var div = document.getElementById('question-box'+boxNo);
     div.parentNode.removeChild(div);
 

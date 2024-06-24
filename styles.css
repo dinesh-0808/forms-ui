@@ -10,6 +10,7 @@ body {
 
 .question-box {
     margin-bottom: 20px;
+    margin-top: 0px;
     border-radius: 8px; /* Rounded corners */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
     border: 2px solid rgba(108, 117, 125, 0.2);
@@ -29,6 +30,8 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-top: 5px solid rgb(103, 58, 183);
     border-left: 5px solid rgb(71, 138, 201);
+
+    
 }
 
 /* Style for the button */
@@ -85,8 +88,8 @@ body {
 
 .bottom-right {
     position: absolute;
-    top: 10px; /* Adjust as needed */
-    right: 10px; /* Adjust as needed */
+    bottom: 5px; /* Adjust as needed */
+    right: 20px; /* Adjust as needed */
     background: none;
     border: none;
     cursor: pointer;
@@ -103,30 +106,28 @@ body {
 .floating-bar {
     position: fixed;
     top: 50%;
-    right: 10px;
+    right: 340px;
     transform: translateY(-50%);
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    padding: 10px;
     z-index: 1000;
 }
 
 .floating-button {
     display: block;
-    width: 100%;
     margin-bottom: 10px;
     padding: 10px;
     border: none;
-    background-color: rgb(71, 138, 201);
+    background-color: rgb(176, 185, 194);
     color: #fff;
-    border-radius: 5px;
+    border-radius: 50%;
     cursor: pointer;
     transition: background-color 0.3s;
+    height: 45px;
+    width: 45px;
 }
 
+
 .floating-button:hover {
-    background-color: #357ae8;
+    background-color: rgb(103, 58, 183);
 }
 
 
@@ -155,13 +156,30 @@ body {
 
 .addButton {
     position: absolute;
-    top: 10px; /* Adjust as needed */
+    bottom: 5px; /* Adjust as needed */
     right: 10px; /* Adjust as needed */
     background: none;
     border: none;
     cursor: pointer;
     color: #999;
     transition: color 0.3s;
-    margin-right: 30px;
+    margin-right: 45px;
     border-radius: 27px;
 }
+
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 0px;
+}
+.question {
+    font-size: 18px;
+}
+.dropdown {
+    height: 65px; /* Adjust the height as needed */
+    width: 300px;
+  
+}
+

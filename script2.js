@@ -1,15 +1,21 @@
 var mcqBox = 0;
 function generatePreviewHTML(){
+
+    let formContainerTitle = document.getElementById('form-container-title');
+
+
     let formContainer = document.getElementById('form-container');
 
-    let children = formContainer.children;
+    let children = formContainerTitle.children;
 
     let previewHTML = `
     <!DOCTYPE html>
     <html lang="en">
     <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" sizes="16x16" href="https://ssl.gstatic.com/docs/spreadsheets/forms/favicon_qp2.png">
     <title>Preview</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/styles.css">
@@ -35,14 +41,12 @@ function generatePreviewHTML(){
     <body>
         <div class="container mt-5 custom-container">
             <div id="form-container">`;
+
     for (let i = 0; i < children.length; i++) {
         let child = children[i];
         if (child.tagName.toLowerCase() === 'div') {
-            // Create a new div for each question in the preview
             let questionType = child.className;
             let questionHTML = '';
-            console.log("child is here: ",child);
-            // Handle each question type
             if(child.querySelector('.formTitleAndDesc')){
                 //title and description
                 let formTitle = child.querySelector("#formTitle").value;
@@ -58,7 +62,23 @@ function generatePreviewHTML(){
                     </div>
                 </div>`
                 //console.log(child.querySelector("#formTitle").value, "   ", child.querySelector("#formDesc").value);
-            } else if (child.querySelector('.shortText')) {
+            }
+            previewHTML += questionHTML;
+        }
+
+    }
+    
+    children = formContainer.children;
+
+    for (let i = 0; i < children.length; i++) {
+        let child = children[i];
+        if (child.tagName.toLowerCase() === 'div') {
+            // Create a new div for each question in the preview
+            let questionType = child.className;
+            let questionHTML = '';
+            console.log("child is here: ",child);
+            // Handle each question type
+            if (child.querySelector('.shortText')) {
                 // Short Text Question
                 let questionText = child.querySelector('.shortText .form-group input').value;
                 questionHTML = `
@@ -111,7 +131,7 @@ function generatePreviewHTML(){
                 });
                 questionHTML += `</div>
                     </div>
-                    </div>`;
+                    `;
             } else if (child.querySelector('.dropDown')) {
                 // Dropdown Question
                 let questionText = child.querySelector('.dropDown .form-group input').value;
