@@ -417,6 +417,31 @@ function handleQuestionBoxClick(event) {
     // console.log(event);
     // Add the active-border class to the clicked .question-box element
     event.currentTarget.classList.add('active-border');
+
+    // // remove the default button
+    // var child = document.getElementById('question-type');
+    // var parent = document.getElementById('question-type').parentNode;
+    // parent.removeChild(child);
+
+
+    // // <div class="floating-bar" id="question-type">               
+    // //             <button value="multiple-choice" class="floating-button"><i class="fa-solid fa-plus"></i></button>
+    // //         </div>
+    // var div = document.createElement('div');
+    // div.classList.add('floating-bar');
+    // div.setAttribute('id','question-type');
+    // var button = document.createElemen   t('button');
+    // button.setAttribute('value','multiple-choice');
+    // button.classList.add('floating-button');
+    // var i = document.createElement('i');
+    // i.classList.add('fa-solid','fa-plus');
+    // button.appendChild(i);
+    // div.appendChild(button);
+
+    // event.currentTarget.appendChild(div);
+
+    
+
 }
 
 // Attach the click event listener to all .question-box elements
