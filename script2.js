@@ -78,13 +78,20 @@ function generatePreviewHTML(){
             let questionHTML = '';
             console.log("child is here: ",child);
             // Handle each question type
+            let toggleButton = child.querySelector('.toggleButton');
+            console.log("toggle button:",toggleButton);
+            let star = "";
+            if(toggleButton.checked) {
+                star = `<span style="color: red;">*</span>`;
+            }
+
             if (child.querySelector('.shortText')) {
                 // Short Text Question
                 let questionText = child.querySelector('.shortText .form-group input').value;
                 questionHTML = `
                     <div class="bg-white rounded shadow-sm p-4 question-box">
                         <div class="form-group">
-                            <h4><strong>${questionText}</strong></h4>
+                            <h4><strong>${questionText}${star}</strong></h4>
                         </div>
                         <div class="form-group">
                             <input type="text" class="form-control" id="inputHeader" aria-describedby="headerHelp" placeholder="write question here">
@@ -97,7 +104,7 @@ function generatePreviewHTML(){
                 questionHTML = `
                     <div class="bg-white rounded shadow-sm p-4 question-box">
                         <div class="form-group">
-                            <h4><strong>${questionText}</strong></h4>
+                            <h4><strong>${questionText}${star}</strong></h4>
                         </div>
                         <div class="form-group">
                             <textarea class="form-control" id="inputHeader" aria-describedby="headerHelp" placeholder="Write question here"></textarea>
@@ -111,7 +118,7 @@ function generatePreviewHTML(){
                 questionHTML = `<div class="bg-white rounded shadow-sm p-4 question-box">
                 <div class="multipleChoice" >        
                 <div class="form-group">
-                            <h4><strong>${questionText}</strong></h4>
+                            <h4><strong>${questionText}${star}</strong></h4>
                         </div>
                         <br>
                         <div class="mcq-options" id="multipleChoice${mcqBox}>
@@ -138,7 +145,7 @@ function generatePreviewHTML(){
                 questionHTML = `<div class="bg-white rounded shadow-sm p-4 question-box">
                 <div class="dropDown">        
                 <div class="form-group">
-                            <h4><strong>${questionText}</strong></h4>
+                            <h4><strong>${questionText}${star}</strong></h4>
                         </div>
                         <br>
                         <select class="form-control">
@@ -158,7 +165,7 @@ function generatePreviewHTML(){
                 questionHTML = `<div class="bg-white rounded shadow-sm p-4 question-box">
                     <div class="CheckBox">        
                     <div class="form-group">
-                            <h4><strong>${questionText}</strong></h4>
+                            <h4><strong>${questionText}${star}</strong></h4>
                     </div>
                         <br>
                         <div id="checkbox-options">

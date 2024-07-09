@@ -71,6 +71,13 @@ function addQuestion(event){
             <button type="button" class="btn btn-secondary mt-2 bottom-right" id="deleteButton1${shortTextBoxCount}" deleteButton="1${shortTextBoxCount}" onclick="deleteQuestionBox(event)">
                 <i class="fa-solid fa-trash" deleteButton="1${shortTextBoxCount}"></i>
             </button>
+            <div class="toggle-container">
+                        <span class="status">Required</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="toggleButton">
+                            <span class="slider"></span>
+                        </label>
+            </div>
         </div>`;
             break;
         
@@ -133,6 +140,13 @@ function addQuestion(event){
             <button type="button" class="btn btn-secondary mt-2 bottom-right" deleteButton="3${MultipleCoiceBoxCount}" onclick="deleteQuestionBox(event)">
                 <i class="fa-solid fa-trash" deleteButton="3${MultipleCoiceBoxCount}"></i>
             </button>
+            <div class="toggle-container" toggleButton="3${MultipleCoiceBoxCount}">
+                        <span class="status">Required</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" class="toggleButton">
+                            <span class="slider"></span>
+                        </label>
+            </div>
         </div>`
             break;
 
@@ -214,7 +228,12 @@ function addQuestion(event){
     document.querySelectorAll('.question-box').forEach(box => {
         box.addEventListener('click', handleQuestionBoxClick);
     });
-    
+
+    updateAddButtonPosition();
+    document.getElementById('form-container').addEventListener('click', (event) => {
+        // Find the closest question-box parent of the clicked element
+        const questionBox = event.target.closest('.question-box');
+    });
 }
 
 
@@ -461,3 +480,21 @@ function deleteQuestionBox(e) {
 
 
 }
+
+
+// function updateAddButtonPosition() {
+//     const questionsSection = document.getElementById('form-container');
+//     const lastQuestion = questionsSection.lastElementChild;
+//     if (lastQuestion) {
+//         const selectQuestionType = lastQuestion.querySelector('.question-box');
+//         const sidebar = document.getElementById('question-type');
+//         const offset = selectQuestionType.offsetTop - sidebar.offsetHeight;
+//         sidebar.style.transform = `translateY(${offset}px)`;
+//         console.log(`Moving sidebar to: ${offset}px`);  // Debugging line
+//     } else {
+//         const sidebar = document.getElementById('question-type');
+//         sidebar.style.transform = `translateY(0px)`;
+//         console.log(`Moving sidebar to: 0px`);  // Debugging line
+//     }
+//   }
+

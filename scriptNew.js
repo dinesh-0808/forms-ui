@@ -32,6 +32,13 @@ function dropdownChangeButton(event) {
             <button type="button" class="btn btn-secondary mt-2 bottom-right" id="deleteButton1${shortTextBoxCount}" deleteButton="1${shortTextBoxCount}" onclick="deleteQuestionBox(event)">
                 <i class="fa-solid fa-trash" deleteButton="1${shortTextBoxCount}"></i>
             </button>
+            <div class="toggle-container" toggleButton="1${shortTextBoxCount}">
+                        <span class="status">Required</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" class="toggleButton">
+                            <span class="slider"></span>
+                        </label>
+            </div>
             `;
             break;
 
@@ -60,6 +67,13 @@ function dropdownChangeButton(event) {
             <button type="button" class="btn btn-secondary mt-2 bottom-right" deleteButton="2${longTextBoxCount}" onclick="deleteQuestionBox(event)">
                 <i class="fa-solid fa-trash" deleteButton="2${longTextBoxCount}"></i>
             </button>
+            <div class="toggle-container" toggleButton="2${longTextBoxCount}">
+                        <span class="status">Required</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" class="toggleButton">
+                            <span class="slider"></span>
+                        </label>
+            </div>
             `;
             break;
         
@@ -92,6 +106,13 @@ function dropdownChangeButton(event) {
             <button type="button" class="btn btn-secondary mt-2 bottom-right" deleteButton="3${MultipleCoiceBoxCount}" onclick="deleteQuestionBox(event)">
                 <i class="fa-solid fa-trash" deleteButton="3${MultipleCoiceBoxCount}"></i>
             </button>
+            <div class="toggle-container" toggleButton="3${MultipleCoiceBoxCount}">
+                        <span class="status">Required</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" class="toggleButton">
+                            <span class="slider"></span>
+                        </label>
+            </div>
             `;
             break;
         
@@ -122,6 +143,13 @@ function dropdownChangeButton(event) {
             <button type="button" class="btn btn-secondary mt-2 bottom-right" deleteButton="4${dropdownBoxCount}"  onclick="deleteQuestionBox(event)">
                 <i class="fa-solid fa-trash" deleteButton="4${dropdownBoxCount}"></i>
             </button>
+            <div class="toggle-container" toggleButton="4${dropdownBoxCount}">
+                        <span class="status">Required</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" class="toggleButton">
+                            <span class="slider"></span>
+                        </label>
+            </div>
             `;
             break;
         
@@ -154,6 +182,13 @@ function dropdownChangeButton(event) {
             <button type="button" class="btn btn-secondary mt-2 bottom-right" deleteButton="5${checkboxBoxCount}" onclick="deleteQuestionBox(event)">
                 <i class="fa-solid fa-trash" deleteButton="5${checkboxBoxCount}"></i>
             </button>
+            <div class="toggle-container" toggleButton="5${checkboxBoxCount}">
+                        <span class="status">Required</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" class="toggleButton">
+                            <span class="slider"></span>
+                        </label>
+            </div>
             `;
             break;
     }
