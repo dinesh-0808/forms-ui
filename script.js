@@ -1,3 +1,5 @@
+
+
 document.addEventListener('DOMContentLoaded', function () {
     var formContainer = document.getElementById('form-container');
 
@@ -26,9 +28,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-document.querySelectorAll('.floating-button').forEach(box => {
-    box.addEventListener('click', addQuestion);
-});
+// document.querySelectorAll('.floating-button').forEach(box => {
+//     box.addEventListener('click', addQuestion);
+// });
 
 var shortTextBoxCount = 0;
 var longTextBoxCount = 0;
@@ -218,10 +220,17 @@ function addQuestion(event){
 
     }
     
-    
+
+
+
+
+
     questionDiv.innerHTML = htmlcode;
     console.log(questionDiv);
-    document.querySelector("#form-container").appendChild(questionDiv);
+    var addButton = document.getElementById('add-section-btn');
+    var neighbourDiv = addButton.parentNode;
+    neighbourDiv.insertAdjacentElement('afterend',questionDiv);
+    // document.querySelector("#form-container").appendChild(questionDiv);
    
 
     // adding click event listeners to all
@@ -229,12 +238,15 @@ function addQuestion(event){
         box.addEventListener('click', handleQuestionBoxClick);
     });
 
-    updateAddButtonPosition();
     document.getElementById('form-container').addEventListener('click', (event) => {
         // Find the closest question-box parent of the clicked element
         const questionBox = event.target.closest('.question-box');
     });
 }
+
+
+
+
 
 
 var MultipleChoiceOptionCount = 1;
@@ -433,33 +445,31 @@ function handleQuestionBoxClick(event) {
     document.querySelectorAll('.question-box').forEach(box => {
         box.classList.remove('active-border');
     });
-    // console.log(event);
+    // console.log(event.currentTarget);
     // Add the active-border class to the clicked .question-box element
     event.currentTarget.classList.add('active-border');
+    var plusButton = document.getElementById('add-section-btn');
+    if(plusButton){
 
-    // // remove the default button
-    // var child = document.getElementById('question-type');
-    // var parent = document.getElementById('question-type').parentNode;
-    // parent.removeChild(child);
+        plusButton.parentNode.removeChild(plusButton);
+    }
+    var button = document.createElement('button');
 
+    // Set the attributes
+    button.setAttribute('value', 'multiple-choice');
+    button.setAttribute('id', 'add-section-btn');
+    button.setAttribute('class', 'btn btn-primary floating-button');
 
-    // // <div class="floating-bar" id="question-type">               
-    // //             <button value="multiple-choice" class="floating-button"><i class="fa-solid fa-plus"></i></button>
-    // //         </div>
-    // var div = document.createElement('div');
-    // div.classList.add('floating-bar');
-    // div.setAttribute('id','question-type');
-    // var button = document.createElemen   t('button');
-    // button.setAttribute('value','multiple-choice');
-    // button.classList.add('floating-button');
-    // var i = document.createElement('i');
-    // i.classList.add('fa-solid','fa-plus');
-    // button.appendChild(i);
-    // div.appendChild(button);
+    // Set the button's text content to "+"
+    button.innerHTML = '<i class="fa-solid fa-plus"></i>';
 
-    // event.currentTarget.appendChild(div);
+    // Set the onclick attribute to call the addQuestion function
+    button.setAttribute('onclick', 'addQuestion(event)');
 
-    
+    // Append the button to the target element
+    console.log(event.currentTarget);
+    event.currentTarget.appendChild(button);
+
 
 }
 
@@ -479,22 +489,22 @@ function deleteQuestionBox(e) {
     div.parentNode.removeChild(div);
 
 
+    var plusButton = document.getElementById('add-section-btn');
+    if(!plusButton){
+        var button = document.createElement('button');
+    
+        // Set the attributes
+        button.setAttribute('value', 'multiple-choice');
+        button.setAttribute('id', 'add-section-btn');
+        button.setAttribute('class', 'btn btn-primary floating-button');
+    
+        // Set the button's text content to "+"
+        button.innerHTML = '<i class="fa-solid fa-plus"></i>';
+    
+        // Set the onclick attribute to call the addQuestion function
+        button.setAttribute('onclick', 'addQuestion(event)');
+        // console.log(document.querySelector("#form-container").lastElementChild.appendChild(button));
+        document.querySelector("#form-container").lastElementChild.appendChild(button);
+    }
 }
-
-
-// function updateAddButtonPosition() {
-//     const questionsSection = document.getElementById('form-container');
-//     const lastQuestion = questionsSection.lastElementChild;
-//     if (lastQuestion) {
-//         const selectQuestionType = lastQuestion.querySelector('.question-box');
-//         const sidebar = document.getElementById('question-type');
-//         const offset = selectQuestionType.offsetTop - sidebar.offsetHeight;
-//         sidebar.style.transform = `translateY(${offset}px)`;
-//         console.log(`Moving sidebar to: ${offset}px`);  // Debugging line
-//     } else {
-//         const sidebar = document.getElementById('question-type');
-//         sidebar.style.transform = `translateY(0px)`;
-//         console.log(`Moving sidebar to: 0px`);  // Debugging line
-//     }
-//   }
 

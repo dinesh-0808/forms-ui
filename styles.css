@@ -253,3 +253,13 @@ input:checked + .slider:before {
 /* .status {
     font-weight: bold;
 } */
+
+#add-section-btn {
+    position: absolute;
+    left: -60px;
+    top: 80px;
+    z-index: 1000;
+    border-radius: 50%; 
+    background-color: rgb(103, 58, 183); 
+
+}
